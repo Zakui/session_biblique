@@ -1,0 +1,75 @@
+<section class="login-block">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 login-sec">
+        <h2 class="text-center">C.D.J</h2>
+        <h3 class="text-center text-uppercase"><%= t('.sign_in') %></h3>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => 'login-form'}) do |f| %>
+          <div class="form-group">
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password %>
+            <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
+          </div>
+
+          <% if devise_mapping.rememberable? %>
+            <div class="form-check">
+              <label class="form-check-label">
+                <%= f.check_box :remember_me, class: 'form-check-input' %>
+                <%= f.label :remember_me, class: 'form-check-label' do %>
+                  <%= resource.class.human_attribute_name('remember_me') %>
+                <% end %>
+              </label>
+              <%= f.submit  t('.sign_in'), class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        <% end %>
+        <%= render 'devise/shared/links' %>
+      </div>
+
+      <div class="col-md-8 banner-sec">
+        <div id="slideIndicator" class="carousel slide h-100" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#slideIndicator" data-slide-to="0" class="active"></li>
+            <li data-target="#slideIndicator" data-slide-to="1"></li>
+            <li data-target="#slideIndicator" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner h-100" role="listbox">
+            <div class="carousel-item active h-100">
+              <img class="d-block img-fluid h-100" src="<%= image_path('slide1.webp') %>" alt="First slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text">
+                  <h2>This is First Slide</h2>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                </div>	
+              </div>
+            </div>
+
+            <div class="carousel-item h-100">
+              <img class="d-block img-fluid h-100" src="<%= image_path('slide2.webp') %>" alt="Second slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text">
+                  <h2>This is Second Slide</h2>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                </div>	
+              </div>
+            </div>
+
+            <div class="carousel-item h-100">
+              <img class="d-block img-fluid h-100" src="<%= image_path('slide3.webp') %>" alt="Third slide">
+              <div class="carousel-caption d-none d-md-block">
+                <div class="banner-text">
+                  <h2>This is Heaven</h2>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                </div>	
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
