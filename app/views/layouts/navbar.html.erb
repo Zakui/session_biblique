@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a href="<%= root_path %>" class="navbar-brand">
+        <img src="<%= image_path('logo.webp') %>" width="40" height="40" alt="logo CDJ">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar7">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse justify-content-stretch" id="navbar7">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item <%= current_class?(root_path) %>">
+                <a class="nav-link" href="<%= root_path %>">Sessioniste</a>
+            </li>
+            <li class="nav-item <%= current_class?(paroises_path) %>">
+                <a class="nav-link" href="<%= paroises_path %>">Paroise</a>
+            </li>
+        </ul>
+    </div>
+</nav>

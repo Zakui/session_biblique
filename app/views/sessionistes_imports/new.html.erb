@@ -1,0 +1,40 @@
+<%= render template: 'layouts/navbar' %>
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Importer la liste des sessionistes</h1>
+
+    <%= form_for @sessionistes_import do |f| %>
+        <% if @sessionistes_import.errors.any? %>
+            <%= pluralize(@sessionistes_import.errors.count, "error") %> empeche d'importer le fichier excel.
+            Merci de mettre a jour votre fichier.
+            <ul>
+                <% @sessionistes_import.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        <% end %>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <span for="sessionistes_import_paroise">Paroise</span>
+                <%= f.collection_select :paroise, Paroise.all, :id, :nom, {prompt: 'Selectionner une paroise'}, {class: 'form-control'} %>
+            </div>
+
+            <div class="custom-file col-md-12">
+                <%= f.file_field :file, class: 'custom-file-input', dataBrowse: "Bestand kiezen" %>
+                <label class="custom-file-label" for="sessionistes_import_file">Choisir un fichier...</label>
+            </div>
+        </div>
+        <div class="form-row mt-5" style="float: right;">
+            <%= f.submit 'Importer le Fichier', class: 'btn btn-primary' %>
+        </div>
+    <% end %>
+</div>
+<% content_for :script do %>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
+<% end %>

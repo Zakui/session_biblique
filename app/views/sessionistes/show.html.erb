@@ -1,0 +1,106 @@
+
+<%= render template: 'layouts/navbar' %>
+
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Sessioniste <%= @sessioniste.prenoms %> <%= @sessioniste.nom %></h1>
+
+  <div class="card border-light">
+    <div class="card-header">
+      <strong class="text-center">Datials</strong>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="numero_arrete">Prenom(s):</label>
+            <h5><%= @sessioniste.prenoms %></h5>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="raison_sociale">Nom:</label>
+            <h5><%= @sessioniste.nom %></h5>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="numero_arrete">Sexe:</label>
+            <% if @sessioniste.sexe == 'F' %>
+              <h5>Feminin</h5>
+            <% else %>
+              <h5>Masculin</h5>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="raison_sociale">Nombre participation:</label>
+            <h5><%= @sessioniste.nombre_participation %></h5>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="numero_arrete">Age:</label>
+            <h5><%= @sessioniste.age %></h5>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="raison_sociale">Derniere classe:</label>
+            <h5><%= @sessioniste.derniere_classe %></h5>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="numero_arrete">Classe:</label>
+            <h5><%= @sessioniste.classe %></h5>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="raison_sociale">Telephone:</label>
+            <h5><%= @sessioniste.telephone %></h5>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="numero_arrete">Chambre:</label>
+            <% if @sessioniste.chambre != nil %>
+              <h5><%= @sessioniste.chambre.get_nom %></h5>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="numero_arrete">Paroise:</label>
+            <h5><%= @sessioniste.paroise.get_nom %></h5>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row form-group">
+        <div class="col-md-12" style="text-align:right;">
+          <a href="<%= edit_sessioniste_path(@sessioniste) %>" class="btn btn-primary">
+            <i class="fa fa-pencil"></i> Modifier
+          </a>
+          <a href="<%= sessionistes_path %>" class="btn btn-secondary">
+            <i class="fa fa-times-circle"></i> Retour
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

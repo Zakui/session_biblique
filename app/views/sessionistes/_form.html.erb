@@ -1,0 +1,83 @@
+
+<%= form_with(model: sessioniste, local: true) do |form| %>
+  <% if sessioniste.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sessioniste.errors.count, "error") %> prohibited this sessioniste from being saved:</h2>
+
+      <ul>
+      <% sessioniste.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= form.label :prenoms %>
+      <%= form.text_field :prenoms, class: 'form-control' %>
+    </div>
+
+    <div class="form-group col-md-6">
+      <%= form.label :nom %>
+      <%= form.text_field :nom, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= form.label :sexe %>
+      <%= form.select :sexe, [['Feminin', 'F'], ['Masculin', 'M']], {}, { class: 'form-control' } %>
+    </div>
+
+    <div class="form-group col-md-6">
+      <%= form.label :nombre_participation %>
+      <%= form.number_field :nombre_participation, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= form.label :age %>
+      <%= form.number_field :age, class: 'form-control' %>
+    </div>
+
+    <div class="form-group col-md-6">
+      <%= form.label :derniere_classe %>
+      <%= form.text_field :derniere_classe, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= form.label :classe %>
+      <%= form.text_field :classe, class: 'form-control' %>
+    </div>
+
+    <div class="form-group col-md-6">
+      <%= form.label :telephone %>
+      <%= form.text_field :telephone, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= form.label :chambre_id %>
+      <%= form.collection_select :chambre_id, Chambre.all, :id, :get_nom, {prompt: 'Selectionner une chambre'}, {class: 'form-control'} %>
+    </div>
+    <div class="form-group col-md-6">
+      <%= form.label :paroise_id %>
+      <%= form.collection_select :paroise_id, Paroise.all, :id, :get_nom, {prompt: 'Selectionner une paroise'}, {class: 'form-control'} %>
+    </div>
+  </div>
+
+  <div class="form-row" style="float: right;">
+    <button type="submit" class="btn btn-primary mr-3">
+      <i class="fa fa-save"></i> Enregistrer
+    </button>
+    <%= link_to sessionistes_path, class: 'btn btn-secondary' do %>
+      <i class="fa fa-times-circle"></i> Retour
+    <% end %>
+  </div>
+<% end %>
+

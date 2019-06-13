@@ -1,0 +1,32 @@
+<%= render template: 'layouts/navbar' %>
+
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Liste des Paroises</h1>
+
+  <%= link_to  new_paroise_path, class: 'btn btn-primary mb-4' do %>
+    <i class="fa fa-plus"></i> Nouveau
+  <% end %>
+
+  <table id="dttb-paroise" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Date de modification</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @paroises.each do |paroise| %>
+        <tr>
+          <td scope="row"></td>
+          <td><%= paroise.nom %></td>
+          <td><%= paroise.updated_at %></td>
+          <td><%= link_to 'Voir', paroise %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

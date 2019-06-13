@@ -7,12 +7,26 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield :style %>
   </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-    <%= yield %>
+  <body class="d-flex flex-column pb-5">
+    <div class="flex-grow-1">
+      <% unless flash.empty? %>
+        <script type="text/javascript">
+            <% flash.each do |f| %>
+              <% type = f[0].to_s %>
+              <% type = 'success' if f[0].to_s == 'notice' %>
+              <% type = 'error' if f[0].to_s == 'alert' %>
+              <% if f[1] != '' %>
+                toastr['<%= type %>']('<%= f[1] %>');
+              <% end %>
+            <% end %>
+        </script>
+      <% end %>
+      
+      <%= yield %>
+    </div>
+    <%= yield :script %>
   </body>
 </html>

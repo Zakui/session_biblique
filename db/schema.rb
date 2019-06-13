@@ -10,10 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_29_132048) do
+ActiveRecord::Schema.define(version: 2019_06_13_070920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "batiments", force: :cascade do |t|
+    t.string "nom"
+    t.string "abbreger"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "chambres", force: :cascade do |t|
+    t.string "nom"
+    t.string "abbreger"
+    t.integer "capacite", default: 0
+    t.integer "place_disponible", default: 0
+    t.bigint "batiment_id"
+    t.string "ocupant"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batiment_id"], name: "index_chambres_on_batiment_id"
+  end
+
+  create_table "paroises", force: :cascade do |t|
+    t.string "nom"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sessionistes", force: :cascade do |t|
+    t.string "prenoms"
+    t.string "nom"
+    t.string "sexe"
+    t.integer "nombre_participation", default: 0
+    t.integer "age"
+    t.string "derniere_classe"
+    t.string "telephone"
+    t.string "classe"
+    t.bigint "chambre_id"
+    t.bigint "paroise_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chambre_id"], name: "index_sessionistes_on_chambre_id"
+    t.index ["paroise_id"], name: "index_sessionistes_on_paroise_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -42,4 +84,7 @@ ActiveRecord::Schema.define(version: 2019_05_29_132048) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chambres", "batiments"
+  add_foreign_key "sessionistes", "chambres"
+  add_foreign_key "sessionistes", "paroises"
 end

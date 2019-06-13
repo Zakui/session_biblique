@@ -1,0 +1,2 @@
+module SessionistesHelper
+end

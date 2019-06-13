@@ -13,9 +13,11 @@
  */
 
  @import "bootstrap";
+ @import "font-awesome";
+ @import "toastr";
 
- body {
-    background: #e6e6de;
+.toast-top-right {
+    left: 12px;
 }
 
 .login-block {
@@ -30,7 +32,7 @@
 	padding: 0;
 }
 
-.container {
+.container-login {
 	background: #fff;
 	border-radius: 10px;
 	box-shadow: 15px 20px 0px rgba(0, 0, 0, 0.1);
@@ -116,3 +118,5 @@
 .banner-text p {
 	color: #fff;
 }
+
+@import "datatables";

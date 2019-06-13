@@ -41,6 +41,13 @@ gem 'bootstrap', '~> 4.2.1'
 
 gem 'devise'
 
+gem 'toastr-rails'
+
+gem 'font-awesome-rails'
+
+gem 'roo', '~> 2.8.0'
+
+gem 'jquery-datatables'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

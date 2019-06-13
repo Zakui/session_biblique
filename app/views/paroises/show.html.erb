@@ -1,0 +1,34 @@
+
+<%= render template: 'layouts/navbar' %>
+
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Paroise <%= @paroise.nom %></h1>
+
+  <div class="card border-light">
+    <div class="card-header">
+      <strong class="text-center">Datials</strong>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="raison_sociale">Nom:</label>
+            <h5><%= @paroise.nom %></h5>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row form-group">
+        <div class="col-md-12" style="text-align:right;">
+          <a href="<%= edit_paroise_path(@paroise) %>" class="btn btn-primary">
+            <i class="fa fa-pencil"></i> Modifier
+          </a>
+          <a href="<%= paroises_path %>" class="btn btn-secondary">
+            <i class="fa fa-times-circle"></i> Retour
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
