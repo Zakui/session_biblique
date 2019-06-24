@@ -1,0 +1,2 @@
+class PrintSave < ApplicationRecord
+end

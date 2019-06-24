@@ -1,0 +1,2 @@
+class PrintTable < ApplicationRecord
+end

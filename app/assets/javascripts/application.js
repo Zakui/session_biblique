@@ -18,5 +18,7 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery
+//= require bscinput
 //= require datatables
+//= require dtcheckboxes
 //= require_tree .

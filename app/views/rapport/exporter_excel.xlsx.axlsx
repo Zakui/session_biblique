@@ -1,0 +1,27 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Sessionistes") do |sheet|
+    header = wb.styles.add_style({:alignment => {:horizontal => :center, :vertical => :center, :wrap_text => true}, :border => { :style => :thin, :color => "000000" }, b: true, sz: 15}) 
+    border_left = wb.styles.add_style({:border => { :style => :thin, :color => "000000" }, sz: 14}) 
+    border_center = wb.styles.add_style({:alignment => {:horizontal => :center, :vertical => :center, :wrap_text => true}, :border => { :style => :thin, :color => "000000" }, sz: 14}) 
+
+    centered = wb.styles.add_style({ alignment: { :horizontal => :center, :vertical => :center }, b: true, sz: 16 })
+
+    sheet.merge_cells('A1:L1')
+    sheet.add_row ["COMMISSION DIOCESAINE DE LA JEUNESSE"], :style => centered
+    sheet.merge_cells('A2:L2')
+    sheet.add_row ["Liste des sessionistes"], :style => centered
+    sheet.add_row
+    sheet.add_row
+
+    sheet.add_row ['No', 'Noms et Prénoms', 'Sexe', 'Paroisse', 'Nombre de Participation', 'Dernière Classe', 'Contact', 'Age', 'Classe', 'Groupe', 'Communauté', 'Dortoir'], :style => header
+    sheet.column_widths *([12]*sheet.column_info.count)
+    @sessionistes.each_with_index do |sessioniste, i|
+        nom_complet = sessioniste.prenoms + ' ' + sessioniste.nom
+        if sessioniste.dortoir != nil
+            dortoir = sessioniste.dortoir.get_nom
+        else
+            dortoir = ''
+        end
+        sheet.add_row [i + 1, nom_complet, sessioniste.sexe , sessioniste.paroise.nom, sessioniste.nombre_participation, sessioniste.derniere_classe, sessioniste.telephone.to_s.gsub(' ', ''), sessioniste.age, sessioniste.classe, sessioniste.groupe, sessioniste.communaute, dortoir ], :style => [border_center, border_left, border_center, border_left, border_center, border_center, border_center, border_center, border_center, border_center, border_left, border_left]
+    end
+end

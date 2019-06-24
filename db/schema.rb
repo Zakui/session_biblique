@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_13_070920) do
+ActiveRecord::Schema.define(version: 2019_06_23_103409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_070920) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "chambres", force: :cascade do |t|
+  create_table "dortoirs", force: :cascade do |t|
     t.string "nom"
     t.string "abbreger"
     t.integer "capacite", default: 0
@@ -31,11 +31,24 @@ ActiveRecord::Schema.define(version: 2019_06_13_070920) do
     t.string "ocupant"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["batiment_id"], name: "index_chambres_on_batiment_id"
+    t.index ["batiment_id"], name: "index_dortoirs_on_batiment_id"
   end
 
   create_table "paroises", force: :cascade do |t|
     t.string "nom"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "print_saves", force: :cascade do |t|
+    t.text "ids"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "print_tables", force: :cascade do |t|
+    t.string "titre"
+    t.text "ids"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,11 +62,13 @@ ActiveRecord::Schema.define(version: 2019_06_13_070920) do
     t.string "derniere_classe"
     t.string "telephone"
     t.string "classe"
-    t.bigint "chambre_id"
+    t.string "groupe"
+    t.string "communaute"
+    t.bigint "dortoir_id"
     t.bigint "paroise_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["chambre_id"], name: "index_sessionistes_on_chambre_id"
+    t.index ["dortoir_id"], name: "index_sessionistes_on_dortoir_id"
     t.index ["paroise_id"], name: "index_sessionistes_on_paroise_id"
   end
 
@@ -84,7 +99,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_070920) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "chambres", "batiments"
-  add_foreign_key "sessionistes", "chambres"
+  add_foreign_key "dortoirs", "batiments"
+  add_foreign_key "sessionistes", "dortoirs"
   add_foreign_key "sessionistes", "paroises"
 end

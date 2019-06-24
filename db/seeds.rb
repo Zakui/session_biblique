@@ -46,7 +46,7 @@ Batiment.create([
     {nom: "Saint Jean Paul II", abbreger: "St Jean Paul II"},
 ])
 
-Chambre.create([
+Dortoir.create([
     {nom: "Chambre 1", abbreger: 'Ch1', capacite: 4, place_disponible: 4, batiment_id: 1, ocupant: 'Coordination'},
     {nom: "Chambre 2", abbreger: 'Ch2', capacite: 4, place_disponible: 4, batiment_id: 1, ocupant: 'Coordination'},
     {nom: "Chambre 3", abbreger: 'Ch3', capacite: 4, place_disponible: 4, batiment_id: 1, ocupant: 'Coordination'},
@@ -63,7 +63,7 @@ Chambre.create([
     {nom: "Chambre 2", abbreger: 'Ch2', capacite: 2, place_disponible: 2, batiment_id: 4, ocupant: 'Coordination'},
     {nom: "Chambre 3", abbreger: 'Ch3', capacite: 4, place_disponible: 4, batiment_id: 4, ocupant: 'Coordination'},
     {nom: "Chambre 4", abbreger: 'Ch4', capacite: 2, place_disponible: 2, batiment_id: 4, ocupant: 'Coordination'},
-    {nom: "Chambre 1", abbreger: 'Ch1', capacite: 4, place_disponible: 4, batiment_id: 1, ocupant: 'Infirmerie'},
+    {nom: "Chambre 1", abbreger: 'Ch1', capacite: 4, place_disponible: 4, batiment_id: 5, ocupant: 'Infirmerie'},
     {nom: "Chambre 2", abbreger: 'Ch2', capacite: 8, place_disponible: 8, batiment_id: 5, ocupant: 'Filles'},
     {nom: "Chambre 1", abbreger: 'Ch1', capacite: 18, place_disponible: 18, batiment_id: 6, ocupant: 'Filles'},
     {nom: "Chambre 2", abbreger: 'Ch2', capacite: 18, place_disponible: 18, batiment_id: 6, ocupant: 'Filles'},

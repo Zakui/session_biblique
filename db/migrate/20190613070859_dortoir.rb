@@ -1,6 +1,6 @@
-class Chambre < ActiveRecord::Migration[5.2]
+class Dortoir < ActiveRecord::Migration[5.2]
   def change
-    create_table :chambres do |t|
+    create_table :dortoirs do |t|
       t.string :nom, null: true
       t.string :abbreger, null: true
       t.integer :capacite, default: 0

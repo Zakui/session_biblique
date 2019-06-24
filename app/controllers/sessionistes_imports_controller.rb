@@ -1,4 +1,5 @@
 class SessionistesImportsController < ApplicationController
+  before_action :authenticate_user!
   def new
     @sessionistes_import = SessionistesImport.new
   end

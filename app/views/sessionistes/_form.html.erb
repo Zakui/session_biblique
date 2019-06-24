@@ -62,8 +62,8 @@
 
   <div class="form-row">
     <div class="form-group col-md-6">
-      <%= form.label :chambre_id %>
-      <%= form.collection_select :chambre_id, Chambre.all, :id, :get_nom, {prompt: 'Selectionner une chambre'}, {class: 'form-control'} %>
+      <%= form.label :dortoir_id %>
+      <%= form.collection_select :dortoir_id, Dortoir.all, :id, :get_nom, {prompt: 'Selectionner un dortoir'}, {class: 'form-control'} %>
     </div>
     <div class="form-group col-md-6">
       <%= form.label :paroise_id %>

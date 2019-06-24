@@ -1,7 +1,4 @@
 <%= render template: 'layouts/navbar' %>
-<% content_for :style do %>
-  <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/css/dataTables.checkboxes.css" rel="stylesheet" />
-<% end %>
 <div class="container mt-4">
   <h1 class="text-center mb-4">Liste des Sessionistes</h1>
 
@@ -11,18 +8,118 @@
   <%= link_to  new_sessionistes_import_path, class: 'btn btn-primary mb-4' do %>
     <i class="fa fa-upload"></i> Importer
   <% end %>
+  <button id="imprimer" type="button" class="btn btn-primary float-right mb-4">
+    <i class="fa fa-print"></i> Imprimer
+  </button>
+  <button id="exporter" type="button" class="btn btn-primary float-right mr-1 mb-4">
+    <i class="fa fa-print"></i> Exporter en Excel
+  </button>
+  <button type="button" class="btn btn-primary float-right mr-1 mb-4" data-toggle="modal" data-target="#loger">
+    <i class="fa fa-home"></i> Loger les sessionistes
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="loger" tabindex="-1" role="dialog" aria-labelledby="logerLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logerLabel">Loger les sessionistes</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Voulez-vous loger tout les sessionistes sans logement ?</p>
+          <small class="form-text text-muted">
+            (Cette action n'affectera que les sessionistes qui n'ont aucun logement)
+          </small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fa fa-times-circle"></i> Non
+          </button>
+          <%= link_to  sessionistes_loger_path, class: 'btn btn-primary' do %>
+            <i class="fa fa-check"></i> Oui
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <label>Par
+      <select id="filtre" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+        <option value="">Tout</option>
+        <option value="paroise">Paroise</option>
+        <option value="sexe">Sexe</option>
+        <option value="classe">Classe</option>
+        <option value="groupe">Groupe</option>
+        <option value="communaute">Communauté</option>
+        <option value="logement">Logement</option>
+      </select>
+    </label>
+    <label id="option-paroise" class="ml-4">Option
+      <select id="option-paroise-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+        <option value="">Tout</option>
+        <% @paroises.each do |paroise| %>
+          <option value="<%= paroise %>"><%= paroise %></option>
+        <% end %>
+      </select>
+    </label>
+    <label id="option-sexe" class="ml-4">Option
+      <select id="option-sexe-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+        <option value="">Tout</option>
+        <option value="M">Masculin</option>
+        <option value="F">Féminin</option>
+      </select>
+    </label>
+    <label id="option-classe" class="ml-4">Option
+      <select id="option-classe-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+        <option value="">Tout</option>
+        <% @classes.each do |classe| %>
+          <option value="<%= classe %>"><%= classe %></option>
+        <% end %>
+      </select>
+    </label>
+    <label id="option-groupe" class="ml-4">Option
+      <select id="option-groupe-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+        <option value="">Tout</option>
+        <% @groupes.each do |groupe| %>
+          <option value="<%= groupe %>"><%= groupe %></option>
+        <% end %>
+      </select>
+    </label>
+    <label id="option-communaute" class="ml-4">Option
+      <select id="option-communaute-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+        <option value="">Tout</option>
+        <% @communautes.each do |communaute| %>
+          <option value="<%= communaute %>"><%= communaute %></option>
+        <% end %>
+      </select>
+    </label>
+    <label id="option-logement" class="ml-4">Option
+      <select id="option-logement-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+        <option value="">Tout</option>
+        <option value="non loger">Non loger</option>
+        <% @logements.each do |logement| %>
+          <option value="<%= logement.strip %>"><%= logement %></option>
+        <% end %>
+      </select>
+    </label>
+  </div>
 
   <table id="sessioniste" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
       <tr>
         <th></th>
-        <th scope="col">Prenoms</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Nombre participation</th>
-        <th scope="col">Age</th>
+        <th scope="col">No</th>
+        <th scope="col">Prenoms & Nom</th>
+        <th scope="col">Sexe</th>
         <th scope="col">Classe</th>
-        <th scope="col">Derniere classe</th>
+        <th scope="col">Groupe</th>
+        <th scope="col">Communaute</th>
         <th scope="col">Paroise</th>
+        <th scope="col">Dordoir</th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
@@ -31,13 +128,18 @@
       <% @sessionistes.each do |sessioniste| %>
         <tr>
           <td><%= sessioniste.id %></td>
-          <td><%= sessioniste.prenoms %></td>
-          <td><%= sessioniste.nom %></td>
-          <td><%= sessioniste.nombre_participation %></td>
-          <td><%= sessioniste.age %></td>
+          <td scope="row"></td>
+          <td><%= sessioniste.prenoms %> <%= sessioniste.nom %></td>
+          <td><%= sessioniste.sexe %></td>
           <td><%= sessioniste.classe %></td>
-          <td><%= sessioniste.derniere_classe %></td>
+          <td><%= sessioniste.groupe %></td>
+          <td><%= sessioniste.communaute %></td>
           <td><%= sessioniste.paroise.nom %></td>
+          <% if sessioniste.dortoir != nil %>
+            <td><%= sessioniste.dortoir.get_nom_complet %></td>
+          <% else %>
+            <td>non loger</td>
+          <% end %>
           <td><%= link_to 'Voir', sessioniste %></td>
         </tr>
       <% end %>
@@ -46,21 +148,142 @@
 </div>
 
 <% content_for :script do %>
-  <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"></script>
   <script>
     $(document).ready(function () {
-        var t = $('#sessioniste').DataTable({
-            columnDefs: [{
-                'targets': 0,
-                'checkboxes': {
-                  'selectRow': true
-                }
-            }],
-            select: {
-                style:    'multi',
-            },
-            order: [[ 1, 'asc' ]]
+      $('#imprimer').hide()
+      $('#exporter').hide()
+      $('#option-paroise').hide()
+      $('#option-sexe').hide()
+      $('#option-classe').hide()
+      $('#option-groupe').hide()
+      $('#option-communaute').hide()
+      $('#option-logement').hide()
+      var t = $('#sessioniste').DataTable({
+        columnDefs: [{
+            'targets': 0,
+            'checkboxes': {
+              'selectRow': true
+            }
+        }],
+        select: {
+            style:    'multi',
+        },
+        order: [[ 2, 'asc' ]],
+        pageLength: 20,
+        lengthMenu: [[20, 40, 80, -1], [20, 40, 80,  "Tous"]]
+      })
+      t.on('select', function() {
+        if (t.column(0).checkboxes.selected().length === 0) {
+          $('#imprimer').hide()
+          $('#exporter').hide()
+        } else {
+          $('#imprimer').show()
+          $('#exporter').show()
+        }
+      })
+      t.on('deselect', function() {
+        if (t.column(0).checkboxes.selected().length === 0) {
+          $('#imprimer').hide()
+          $('#exporter').hide()
+        } else {
+          $('#imprimer').show()
+          $('#exporter').show()
+        }
+      })
+      t.on('order.dt search.dt', function () {
+        t.column(1, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+        });
+      }).draw();
+      $('#imprimer').on('click', function(e){
+        var rows_selected = t.column(0).checkboxes.selected();
+
+        $.ajax({
+          url: `/enregistrer-la-selection`,
+          headers: {
+            'X-CSRF-Token': '<%= form_authenticity_token.to_s %>'
+          },
+          type: 'post',
+          data: {
+            description: 'Sessionistes',
+            ids: rows_selected.join(',').split(',')
+          }
         })
+        .done( (response) => {
+          window.location.assign(`generation-de-badge/${response.id}`)
+        })
+      })
+      $('#exporter').on('click', function(e){
+        var rows_selected = t.column(0).checkboxes.selected();
+
+        $.ajax({
+          url: `/enregistrer-l-exportation`,
+          headers: {
+            'X-CSRF-Token': '<%= form_authenticity_token.to_s %>'
+          },
+          type: 'post',
+          data: {
+            ids: rows_selected.join(',').split(',')
+          }
+        })
+        .done( (response) => {
+          window.location.assign(`exporter-en-excel/${response.id}`)
+        })
+      })
+      $('#filtre').on('change', function(){
+        if ($('#filtre').val() === '' ) {
+          t.columns(7).search( '' ).draw(true)
+          t.columns(3).search( '' ).draw(true)
+          t.columns(4).search( '' ).draw(true)
+          t.columns(5).search( '' ).draw(true)
+          t.columns(6).search( '' ).draw(true)
+          t.columns(8).search( '' ).draw(true)
+
+          // Paroise select
+          $('#option-paroise').hide()
+          $('#option-paroise-select').prop('selectedIndex', 0)
+          // Sexe select
+          $('#option-sexe').hide()
+          $('#option-sexe-select').prop('selectedIndex', 0)
+          // Classe select
+          $('#option-classe').hide()
+          $('#option-classe-select').prop('selectedIndex', 0)
+          // Groupe select
+          $('#option-groupe').hide()
+          $('#option-groupe-select').prop('selectedIndex', 0)
+          // Communaute select
+          $('#option-communaute').hide()
+          $('#option-communaute-select').prop('selectedIndex', 0)
+          // Communaute select
+          $('#option-logement').hide()
+          $('#option-logement-select').prop('selectedIndex', 0)
+        } else {
+          $('#filtre').val() === 'paroise' ? $('#option-paroise').show() : $('#option-paroise').hide()
+          $('#filtre').val() === 'sexe' ? $('#option-sexe').show() : $('#option-sexe').hide()
+          $('#filtre').val() === 'classe' ? $('#option-classe').show() : $('#option-classe').hide()
+          $('#filtre').val() === 'groupe' ? $('#option-groupe').show() : $('#option-groupe').hide()
+          $('#filtre').val() === 'communaute' ? $('#option-communaute').show() : $('#option-communaute').hide()
+          $('#filtre').val() === 'logement' ? $('#option-logement').show() : $('#option-logement').hide()
+        }
+      })
+      $('#option-paroise-select').on('change', function(){
+        t.columns(7).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+      })
+      $('#option-sexe-select').on('change', function(){
+        t.columns(3).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+      })
+      $('#option-classe-select').on('change', function(){
+        t.columns(4).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+      })
+      $('#option-groupe-select').on('change', function(){
+        t.columns(5).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+      })
+      $('#option-communaute-select').on('change', function(){
+        t.columns(6).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+      })
+      $('#option-logement-select').on('change', function(){
+        t.columns(8).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+      })
     })
   </script>
 <% end %>

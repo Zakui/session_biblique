@@ -19,6 +19,15 @@
 .toast-top-right {
     left: 12px;
 }
+.nav-item a.nav-link {
+	color: #fff !important;
+	font-weight: bold;
+	font-size: 17px;
+	position: relative;
+}
+.nav-item a.nav-link:hover {
+	color: #c2c2c2 !important;
+}
 
 .login-block {
     margin-top: 7%;
@@ -87,6 +96,129 @@
 	margin-right: auto
 }
 
+.btn-pdf {
+    max-width: 400px;
+    margin: auto;
+    justify-content: center;
+}
+
+.badges {
+	width: 390px;
+	height: 550px;
+	background: #eee;
+	margin: 2px;
+	border: 2px solid #eee;
+}
+
+.badge-header {
+	background-color: $primary;
+	color: #fff;
+}
+
+.archidiocese {
+    font-size: 18px;
+}
+
+.corp-badge {
+	height: 90%;
+	background-image: image-url('session.webp') !important;
+	background-repeat: no-repeat !important;
+	background-color: #fff;
+	background-position: center;
+	background-size: 60%;
+}
+
+.session-titre {
+	font-family: Arvo;
+    font-weight: bold;
+    font-size: 25px;
+    text-shadow:
+        3px -3px 0 #fff,
+        -3px 3px 0 #fff,
+        3px 3px 0 #fff,
+        4px 4px 0 #222;
+    line-height: 0.8em;
+    transform: scaleY(0.7);
+    -webkit-transform: scaleY(0.7);
+    -moz-transform: scaleY(0.7);
+}
+
+.session-sous-titre {
+	color: $primary;
+	font-family: "Great Vibes", cursive;
+	font-size: 20px;
+	line-height: 10px;
+	font-weight: normal;
+	margin-bottom: 0px;
+	margin-top: 10px;
+	text-shadow: 0 1px 1px #fff;
+}
+
+.astrodivider {
+	margin:15px auto;
+	width:300px; 
+	max-width: 100%;
+	position:relative;
+}
+  
+.astrodividermask { 
+	  overflow:hidden; height:20px; 
+}
+  
+.astrodividermask:after { 
+	content:''; 
+	display:block;
+	margin:-25px 0 0 0;
+	width:100%;
+	height:25px;
+	border-radius:125px / 12px;
+	box-shadow:0 0 8px $primary;
+}
+.astrodivider span {
+	width:20px;
+	height:20px; 
+	position:absolute; 
+	bottom:100%;
+	margin-bottom:-11px;
+	left:50%;
+	margin-left:-11px;
+	border-radius:100%;
+	box-shadow:0 2px 4px $primary;
+	background:#fff;
+}
+.astrodivider i {
+	position:absolute;
+	top:2px;
+	bottom:2px;
+	left:2px;
+	right:2px;
+	border-radius:100%;
+	border:1px dashed $primary;
+	text-align:center;
+	line-height:13px;
+	font-style:normal;
+	color:$primary;
+}
+
+.text-style {
+    font-size: 17px;
+    line-height: 30px;
+    font-style: italic;
+}
+
+.text-style2 {
+    font-size: 15px;
+    line-height: 35px;
+    font-style: italic;
+}
+
+.vertical-line {
+	width: 2px;
+	height: 60px;
+	background: $primary;
+	margin: 0 auto;
+}
+
 .btn-login {
 	background: #DE6262;
 	color: #fff;
@@ -120,3 +252,4 @@
 }
 
 @import "datatables";
+@import "dtcheckboxes";

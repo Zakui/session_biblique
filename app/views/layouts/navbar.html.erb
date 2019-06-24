@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <a href="<%= root_path %>" class="navbar-brand">
-        <img src="<%= image_path('logo.webp') %>" width="40" height="40" alt="logo CDJ">
+        <img src="<%= image_path('logo.webp') %>" width="35" height="50" alt="logo CDJ">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar7">
         <span class="navbar-toggler-icon"></span>
@@ -12,6 +12,15 @@
             </li>
             <li class="nav-item <%= current_class?(paroises_path) %>">
                 <a class="nav-link" href="<%= paroises_path %>">Paroise</a>
+            </li>
+            <li class="nav-item <%= current_class?(batiments_path) %>">
+                <a class="nav-link" href="<%= batiments_path %>">Batiment</a>
+            </li>
+            <li class="nav-item <%= current_class?(print_tables_path) %>">
+                <a class="nav-link" href="<%= print_tables_path %>">Impressions</a>
+            </li>
+            <li class="nav-item <%= current_class?(destroy_user_session_path) %>">
+                <%= link_to('Déconnecter', destroy_user_session_path, method: :delete, class: 'nav-link') %>
             </li>
         </ul>
     </div>

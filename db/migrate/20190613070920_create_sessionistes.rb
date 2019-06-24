@@ -9,7 +9,9 @@ class CreateSessionistes < ActiveRecord::Migration[5.2]
       t.string :derniere_classe, null: true
       t.string :telephone, null: true
       t.string :classe, null: true
-      t.references :chambre, foreign_key: true
+      t.string :groupe, null: true
+      t.string :communaute, null: true
+      t.references :dortoir, foreign_key: true
       t.references :paroise, foreign_key: true
 
       t.timestamps

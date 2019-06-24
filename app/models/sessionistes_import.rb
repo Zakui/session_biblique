@@ -1,5 +1,6 @@
 class SessionistesImport
     include ActiveModel::Model
+    include ActionView::Helpers::NumberHelper
     require 'roo'
   
     attr_accessor :paroise
@@ -28,13 +29,16 @@ class SessionistesImport
       (6..spreadsheet.last_row).map do |i|
         row = Hash[[header, spreadsheet.row(i)].transpose]
         sessioniste = Sessioniste.new
-        sessioniste.prenoms = row['Prenoms'].capitalize
+        sessioniste.prenoms = row['Prenoms'].titleize
         sessioniste.nom = row['Nom'].upcase
         sessioniste.sexe = row['SEXE'].upcase
         sessioniste.nombre_participation = row['Nombre de participation']
         sessioniste.age = row['AGE']
         sessioniste.derniere_classe = row['Derniere Classe'] ? row['Derniere Classe'].upcase : ''
-        sessioniste.telephone = row['Contact']
+        sessioniste.classe = row['Classe'] ? row['Classe'].upcase : ''
+        sessioniste.groupe = row['Groupe'] ? row['Groupe'].upcase : ''
+        sessioniste.communaute = row['Communaute'] ? row['Communaute'].upcase : ''
+        sessioniste.telephone = row['Contact'].class == 'String'? row['Contact'] : number_with_precision(row['Contact'], precision: 0)
         sessioniste.paroise = Paroise.find(paroise)
         sessioniste
       end

@@ -1,0 +1,97 @@
+
+<%= render template: 'layouts/navbar' %>
+
+<div class="container mt-4">
+  <h1 class="text-center mb-4"><%= @dortoir.nom %></h1>
+
+  <div class="card border-light">
+    <div class="card-header">
+      <strong class="text-center">Datials</strong>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="raison_sociale">Nom:</label>
+            <h5><%= @dortoir.nom %></h5>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="raison_sociale">Abreviation:</label>
+            <h5><%= @dortoir.abbreger %></h5>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="raison_sociale">Capacite:</label>
+            <h5><%= @dortoir.capacite %></h5>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="raison_sociale">Place disponible:</label>
+            <h5><%= @dortoir.place_disponible %></h5>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="raison_sociale">Occupant:</label>
+            <h5><%= @dortoir.ocupant %></h5>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row form-group">
+        <div class="col-md-12" style="text-align:right;">
+          <a href="<%= edit_batiment_dortoir_path(@dortoir.batiment, @dortoir) %>" class="btn btn-primary">
+            <i class="fa fa-pencil"></i> Modifier
+          </a>
+          <a href="<%= batiment_path @batiment %>" class="btn btn-secondary">
+            <i class="fa fa-times-circle"></i> Retour
+          </a>
+        </div>
+      </div>
+
+      <h1 class="text-center mb-4">Liste des Sessioniste</h1>
+
+
+      <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Prenoms & Nom</th>
+            <th scope="col">Sexe</th>
+            <th scope="col">Classe</th>
+            <th scope="col">Groupe</th>
+            <th scope="col">Communaute</th>
+            <th scope="col">Paroise</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @dortoir.sessionistes.each_with_index do |sessioniste , i| %>
+            <tr>
+              <td scope="row"><%= i+1 %></td>
+              <td><%= sessioniste.prenoms %> <%= sessioniste.nom %></td>
+              <td><%= sessioniste.sexe %></td>
+              <td><%= sessioniste.classe %></td>
+              <td><%= sessioniste.groupe %></td>
+              <td><%= sessioniste.communaute %></td>
+              <td><%= sessioniste.paroise.nom %></td>
+              <td><%= link_to 'Voir', sessioniste %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

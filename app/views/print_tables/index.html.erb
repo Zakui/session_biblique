@@ -1,0 +1,30 @@
+<%= render template: 'layouts/navbar' %>
+
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Liste des Impressions</h1>
+
+  <table id="dttb-prints" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Nombre Badges</th>
+        <th scope="col">Date d'impression</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @print_tables.each do |p_table| %>
+        <tr>
+          <td scope="row"></td>
+          <td><%= p_table.titre %></td>
+          <td><%= eval(p_table.ids).length %></td>
+          <td><%= l p_table.updated_at, format: "%a, %d %B %Y %H:%M" %></td>
+          <td><%= link_to 'Voir', sessionistes_generation_badge_path(p_table.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

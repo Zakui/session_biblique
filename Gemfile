@@ -49,6 +49,14 @@ gem 'roo', '~> 2.8.0'
 
 gem 'jquery-datatables'
 
+gem 'wicked_pdf'
+
+gem 'wkhtmltopdf-binary'
+
+gem 'axlsx', '3.0.0.pre'
+
+gem 'axlsx_rails'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

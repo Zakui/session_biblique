@@ -1,0 +1,89 @@
+<% content_for(:title, 'Genreation du pdf') %>
+<% unless request.format.to_sym == :pdf %>
+    <% content_for :style do %>
+        <style>
+            .page {
+                display: flex !important;
+                position: relative;
+                background: #fefefe;
+                display: block;
+                margin: 0 auto;
+                margin-bottom: 0.5cm;
+                box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+                width: 21cm;
+                height: 29.7cm; 
+            }
+        </style>
+    <% end %>
+    <%= render template: 'layouts/navbar' %>
+<% end %>
+<div class="container mt-4">
+    <% unless request.format.to_sym == :pdf %>
+        <div class="row btn-pdf">
+            <div class="mx-2 mb-3 mt-3"> 
+                <a href="<%= sessionistes_path %>" class="btn btn-secondary btn-lg">
+                    <i class="fa fa-arrow-left"></i> Retour
+                </a>
+            </div>
+            
+            <div class="mx-2 mb-3 mt-3">
+                <a href="<%= sessionistes_generation_badge_path(@id, format: "pdf") %>" target="_blank" class="btn btn-primary btn-lg">
+                    <i class="fa fa-print"></i> Exporter en PDF
+                </a>
+            </div>
+        </div>
+    <% end %>
+    <% @datas.each do |groups| %>
+        <div class="page row">
+            <% groups.each do |item| %>
+            <div class="badges">
+                <div class="w-100 p-2 badge-header">
+                    <% if request.format.to_sym == :pdf %>
+                        <%= wicked_pdf_image_tag('logo.png', height: '50', width: '30', class: 'ml-2', alt: "logo cdj") %>
+                    <% end %>
+                    <% unless request.format.to_sym == :pdf %>
+                        <img class="ml-2" src="<%= image_path('logo.webp') %>" alt="logo cdj" width="30" height="50">
+                    <% end %>
+                    <% if request.format.to_sym == :pdf %>
+                        <%= wicked_pdf_image_tag('logo.png', height: '50', width: '30', class: 'mr-2 float-right', alt: "logo cdj") %>
+                    <% end %>
+                    <% unless request.format.to_sym == :pdf %>
+                        <img class="mr-2 float-right" src="<%= image_path('logo.webp') %>" alt="logo cdj" width="30" height="50">
+                    <% end %>
+                    <h6 class="float-right mt-3 mr-3 font-weight-bold archidiocese"><u>ARCHIDIOCESE DE CONAKRY</u></h6>
+                </div>
+                <div class="w-100 pt-4 corp-badge">
+                    <h4 class="text-center session-titre">SESSION DE FORMATION</h4>
+                    <h6 class="text-center session-sous-titre">Biblique et Humaine</h6>
+                    <div class="astrodivider"><div class="astrodividermask"></div><span><i>&#10038;</i></span></div>
+                    <div class="text-center mb-4 theme">
+                        <span class="text-danger text-style2"><u>Theme:</u> Que tous soient un. (Jean 17, 21)</span>
+                    </div>
+                    <div class="ml-5 mt-5">
+                        <div>
+                            <span class="text-style"><strong class="text-uppercase">Prenoms:</strong> <%= item.prenoms %></span><br>
+                            <span class="text-style"><strong class="text-uppercase">Nom:</strong> <%= item.nom %></span><br>
+                            <span class="text-style"><strong class="text-uppercase">Classe:</strong> <%= item.classe %></span><br>
+                            <span class="text-style"><strong class="text-uppercase">Groupe:</strong> <%= item.groupe %></span><br>
+                            <span class="text-style"><strong class="text-uppercase">Communaute:</strong> <%= item.communaute %></span>
+                        </div>
+                    </div>
+                    <div class="mt-4 img-mt">
+                        <% if request.format.to_sym == :pdf %>
+                            <%= wicked_pdf_image_tag( 'tous.jpg', height: '60', width: '70', class: 'ml-4 float-left', alt: "logo cdj") %>
+                        <% end %>
+                        <% unless request.format.to_sym == :pdf %>
+                            <img class="ml-4 float-left" src="<%= image_path('tous.webp') %>" alt="logo cdj" width="70" height="60">
+                        <% end %>
+                        <div class="float-left vertical-line ml-3"></div>
+                        <div class="float-left ml-3">
+                            <h5>Kendoumayah</h5>
+                            <div class="text-primary">Du 01 au 11 Aout 2019</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        </div>
+    <% end %>
+</div>
