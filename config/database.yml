@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: session_biblique_production
-  username: session_biblique
+  database: session_biblique
+  username: deploy
   password: <%= ENV['SESSION_BIBLIQUE_DATABASE_PASSWORD'] %>
