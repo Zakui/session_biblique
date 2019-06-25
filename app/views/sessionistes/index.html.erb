@@ -14,12 +14,14 @@
   <button id="exporter" type="button" class="btn btn-primary float-right mr-1 mb-4">
     <i class="fa fa-download"></i> Exporter en Excel
   </button>
-  <button type="button" class="btn btn-primary float-right mr-1 mb-4" data-toggle="modal" data-target="#listes">
-    <i class="fa fa-list"></i> Liste des Sessionistes
-  </button>
-  <button type="button" class="btn btn-primary float-right mr-1 mb-4" data-toggle="modal" data-target="#loger">
-    <i class="fa fa-home"></i> Loger les sessionistes
-  </button>
+  <% if @sessionistes.length > 0 %>
+    <button type="button" class="btn btn-primary float-right mr-1 mb-4" data-toggle="modal" data-target="#listes">
+      <i class="fa fa-list"></i> Liste des Sessionistes
+    </button>
+    <button type="button" class="btn btn-primary float-right mr-1 mb-4" data-toggle="modal" data-target="#loger">
+      <i class="fa fa-home"></i> Loger les sessionistes
+    </button>
+  <% end %>
 
   <!-- Modal -->
   <div class="modal fade" id="listes" tabindex="-1" role="dialog" aria-labelledby="logerLabel" aria-hidden="true">
