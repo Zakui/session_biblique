@@ -1,4 +1,5 @@
 class Batiment < ApplicationRecord
+    include Friendlyable
     has_many :dortoirs
 
     def get_capacite

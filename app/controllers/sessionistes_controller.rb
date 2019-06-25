@@ -11,8 +11,8 @@ class SessionistesController < ApplicationController
     @logements = []
     @sessionistes = Sessioniste.all
     @sessionistes.each do |sessioniste|
-      if !@paroises.include? sessioniste.paroise.nom
-        @paroises.push(sessioniste.paroise.nom)
+      if !@paroises.include?({id: sessioniste.paroise.id, nom: sessioniste.paroise.nom})
+        @paroises.push({id: sessioniste.paroise.id, nom: sessioniste.paroise.nom})
       end
       if sessioniste.classe && !@classes.include?(sessioniste.classe)
         @classes.push(sessioniste.classe)
@@ -23,8 +23,8 @@ class SessionistesController < ApplicationController
       if sessioniste.communaute && !@communautes.include?(sessioniste.communaute)
         @communautes.push(sessioniste.communaute)
       end
-      if sessioniste.dortoir && !@logements.include?(sessioniste.dortoir.get_nom_complet)
-        @logements.push(sessioniste.dortoir.get_nom_complet)
+      if sessioniste.dortoir && !@logements.include?({id: sessioniste.dortoir.id, nom: sessioniste.dortoir.get_nom_complet})
+        @logements.push({id: sessioniste.dortoir.id, nom: sessioniste.dortoir.get_nom_complet})
       end
     end
   end
@@ -44,9 +44,9 @@ class SessionistesController < ApplicationController
 
   # GET /generation-de-badge/1
   def badge
-    p_table = PrintTable.find(params[:id])
+    p_table = PrintTable.friendly.find(params[:id])
     @datas = []
-    @id = p_table.id
+    @id = p_table.hash_id
     items = []
     step = 0
     eval(p_table.ids).each do |key, v|
@@ -57,7 +57,7 @@ class SessionistesController < ApplicationController
       end
 
       if p_table.titre = 'Sessionistes'
-        items.push(Sessioniste.find(v))
+        items.push(Sessioniste.friendly.find(v))
       end
 
       step = step + 1
@@ -71,6 +71,54 @@ class SessionistesController < ApplicationController
         render pdf: "bages des sessionistes",
         page_size: 'A4',
         template: "sessionistes/badge.html.erb",
+        layout: "pdf.html.erb",
+        lowquality: true,
+        zoom: 1,
+        dpi: 75
+      end
+    end
+  end
+
+  # GET /fiche-des-sessionistes/1
+  def liste
+    p_fiche = PrintFiche.friendly.find(params[:id])
+    @id = p_fiche.hash_id
+
+    if p_fiche.filtre == 'paroise'
+      paroise = Paroise.friendly.find(p_fiche.opt)
+      @titre = "Liste des sessionistes de la paroise #{paroise.nom}"
+      @data = Sessioniste.friendly.where(paroise: paroise)
+    end
+    if p_fiche.filtre == 'classe'
+      @titre = "Liste des sessionistes de la classe #{p_fiche.opt}"
+      @data = Sessioniste.friendly.where(classe: p_fiche.opt)
+    end
+    if p_fiche.filtre == 'groupe'
+      @titre = "Liste des sessionistes du groupe #{p_fiche.opt}"
+      @data = Sessioniste.friendly.where(groupe: p_fiche.opt)
+    end
+    if p_fiche.filtre == 'communaute'
+      @titre = "Liste des sessionistes de la communaute #{p_fiche.opt}"
+      @data = Sessioniste.friendly.where(communaute: p_fiche.opt)
+    end
+    if p_fiche.filtre == 'logement'
+      if p_fiche.opt == 'non loger'
+        @titre = "Liste des sessionistes non loger"
+        @data = Sessioniste.friendly.where(dortoir: nil)
+      else
+        dortoir = Dortoir.friendly.find(p_fiche.opt)
+        @titre = "Liste des sessionistes du dortoir #{dortoir.get_nom_complet}"
+        @data = Sessioniste.friendly.where(dortoir: dortoir)
+      end
+    end
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "liste des sessionistes",
+        page_size: 'A4',
+        disposition: 'attachment',
+        template: "sessionistes/liste.html.erb",
         layout: "pdf.html.erb",
         lowquality: true,
         zoom: 1,
@@ -115,7 +163,7 @@ class SessionistesController < ApplicationController
     p_save = PrintSave.find(params[:id])
     @sessionistes = []
     eval(p_save.ids).each do |key, v|
-      @sessionistes.push(Sessioniste.find(v))
+      @sessionistes.push(Sessioniste.friendly.find(v))
     end
 
     render xlsx: 'exporter_excel', template: 'rapport/exporter_excel.xlsx.axlsx'
@@ -148,7 +196,7 @@ class SessionistesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sessioniste
-      @sessioniste = Sessioniste.find(params[:id])
+      @sessioniste = Sessioniste.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

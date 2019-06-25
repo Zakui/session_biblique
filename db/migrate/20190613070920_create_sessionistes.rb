@@ -13,6 +13,7 @@ class CreateSessionistes < ActiveRecord::Migration[5.2]
       t.string :communaute, null: true
       t.references :dortoir, foreign_key: true
       t.references :paroise, foreign_key: true
+      t.string :hash_id, index: true
 
       t.timestamps
     end

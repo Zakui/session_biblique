@@ -21,7 +21,7 @@
           <td><%= p_table.titre %></td>
           <td><%= eval(p_table.ids).length %></td>
           <td><%= l p_table.updated_at, format: "%a, %d %B %Y %H:%M" %></td>
-          <td><%= link_to 'Voir', sessionistes_generation_badge_path(p_table.id) %></td>
+          <td><%= link_to 'Voir', sessionistes_generation_badge_path(p_table.hash_id) %></td>
         </tr>
       <% end %>
     </tbody>

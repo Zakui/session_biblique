@@ -41,8 +41,7 @@ Batiment.create([
     {nom: "Batiment 6", abbreger: "B6"},
     {nom: "Batiment 7", abbreger: "B7"},
     {nom: "Batiment 8", abbreger: "B8"},
-    {nom: "Vatican I", abbreger: "Vatican I"},
-    {nom: "Vatican II", abbreger: "Vatican II"},
+    {nom: "Vatican", abbreger: "Vatican"},
     {nom: "Saint Jean Paul II", abbreger: "St Jean Paul II"},
 ])
 
@@ -72,7 +71,7 @@ Dortoir.create([
     {nom: "Chambre 3", abbreger: 'Ch3', capacite: 3, place_disponible: 3, batiment_id: 7, ocupant: 'Filles'},
     {nom: "Chambre 4", abbreger: 'Ch4', capacite: 3, place_disponible: 3, batiment_id: 7, ocupant: 'Filles'},
     {nom: "Dortoir 1", abbreger: 'Ch1', capacite: 40, place_disponible: 40, batiment_id: 8, ocupant: 'Filles'},
-    {nom: "", abbreger: '', capacite: 80, place_disponible: 80, batiment_id: 9, ocupant: 'Garçons'},
-    {nom: "", abbreger: '', capacite: 80, place_disponible: 80, batiment_id: 10, ocupant: 'Garçons'},
-    {nom: "", abbreger: '', capacite: 50, place_disponible: 50, batiment_id: 11, ocupant: 'Garçons'},
+    {nom: "I", abbreger: 'I', capacite: 80, place_disponible: 80, batiment_id: 9, ocupant: 'Garçons'},
+    {nom: "II", abbreger: 'II', capacite: 80, place_disponible: 80, batiment_id: 9, ocupant: 'Garçons'},
+    {nom: "", abbreger: '', capacite: 50, place_disponible: 50, batiment_id: 10, ocupant: 'Garçons'},
 ])

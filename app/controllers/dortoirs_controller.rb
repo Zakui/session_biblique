@@ -8,7 +8,7 @@ class DortoirsController < ApplicationController
 
   # GET /batiments/1/dortoirs/new
   def new
-      @batiment = Batiment.find(params[:batiment_id])
+      @batiment = Batiment.friendly.find(params[:batiment_id])
       @dortoir = Dortoir.new
   end
 
@@ -51,8 +51,8 @@ class DortoirsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_dortoir
-      @batiment = Batiment.find(params[:batiment_id])
-      @dortoir = Dortoir.find(params[:id])
+      @batiment = Batiment.friendly.find(params[:batiment_id])
+      @dortoir = Dortoir.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

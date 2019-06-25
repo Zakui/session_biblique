@@ -9,14 +9,92 @@
     <i class="fa fa-upload"></i> Importer
   <% end %>
   <button id="imprimer" type="button" class="btn btn-primary float-right mb-4">
-    <i class="fa fa-print"></i> Imprimer
+    <i class="fa fa-id-card"></i> Badges
   </button>
   <button id="exporter" type="button" class="btn btn-primary float-right mr-1 mb-4">
-    <i class="fa fa-print"></i> Exporter en Excel
+    <i class="fa fa-download"></i> Exporter en Excel
+  </button>
+  <button type="button" class="btn btn-primary float-right mr-1 mb-4" data-toggle="modal" data-target="#listes">
+    <i class="fa fa-list"></i> Liste des Sessionistes
   </button>
   <button type="button" class="btn btn-primary float-right mr-1 mb-4" data-toggle="modal" data-target="#loger">
     <i class="fa fa-home"></i> Loger les sessionistes
   </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="listes" tabindex="-1" role="dialog" aria-labelledby="logerLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logerLabel">Liste des sessionistes</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4 class="text-center">Liste des Sessionistes</h4>
+          <small class="form-text text-muted text-center">(Choisir la liste que vous voulez exporter)</small>
+
+          <div class="text-center">
+            <label>Filtre
+              <select id="filtre_liste" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                <option value="">---------</option>
+                <option value="paroise">Paroise</option>
+                <option value="classe">Classe</option>
+                <option value="groupe">Groupe</option>
+                <option value="communaute">Communauté</option>
+                <option value="logement">Logement</option>
+              </select>
+            </label>
+            <label id="option-paroises" class="ml-4"> Option
+              <select id="option-paroises-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                <% @paroises.each do |paroise| %>
+                  <option value="<%= paroise[:id] %>"><%= paroise[:nom] %></option>
+                <% end %>
+              </select>
+            </label>
+            <label id="option-classes" class="ml-4"> Option
+              <select id="option-classes-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                <% @classes.each do |classe| %>
+                  <option value="<%= classe %>"><%= classe %></option>
+                <% end %>
+              </select>
+            </label>
+            <label id="option-groupes" class="ml-4"> Option
+              <select id="option-groupes-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                <% @groupes.each do |groupe| %>
+                  <option value="<%= groupe %>"><%= groupe %></option>
+                <% end %>
+              </select>
+            </label>
+            <label id="option-communautes" class="ml-4"> Option
+              <select id="option-communautes-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                <% @communautes.each do |communaute| %>
+                  <option value="<%= communaute %>"><%= communaute %></option>
+                <% end %>
+              </select>
+            </label>
+            <label id="option-logements" class="ml-4"> Option
+              <select id="option-logements-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                <option value="non loger">Non loger</option>
+                <% @logements.each do |logement| %>
+                  <option value="<%= logement[:id] %>"><%= logement[:nom] %></option>
+                <% end %>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fa fa-times-circle"></i> Non
+          </button>
+          <button id="imp" type="button" class="btn btn-primary">
+            <i class="fa fa-print"></i> Imprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Modal -->
   <div class="modal fade" id="loger" tabindex="-1" role="dialog" aria-labelledby="logerLabel" aria-hidden="true">
@@ -60,9 +138,9 @@
     </label>
     <label id="option-paroise" class="ml-4">Option
       <select id="option-paroise-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
-        <option value="">Tout</option>
+        <option value="">Toutes</option>
         <% @paroises.each do |paroise| %>
-          <option value="<%= paroise %>"><%= paroise %></option>
+          <option value="<%= paroise[:nom] %>"><%= paroise[:nom] %></option>
         <% end %>
       </select>
     </label>
@@ -75,7 +153,7 @@
     </label>
     <label id="option-classe" class="ml-4">Option
       <select id="option-classe-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
-        <option value="">Tout</option>
+        <option value="">Toutes</option>
         <% @classes.each do |classe| %>
           <option value="<%= classe %>"><%= classe %></option>
         <% end %>
@@ -91,7 +169,7 @@
     </label>
     <label id="option-communaute" class="ml-4">Option
       <select id="option-communaute-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
-        <option value="">Tout</option>
+        <option value="">Toutes</option>
         <% @communautes.each do |communaute| %>
           <option value="<%= communaute %>"><%= communaute %></option>
         <% end %>
@@ -102,7 +180,7 @@
         <option value="">Tout</option>
         <option value="non loger">Non loger</option>
         <% @logements.each do |logement| %>
-          <option value="<%= logement.strip %>"><%= logement %></option>
+          <option value="<%= logement[:nom].strip %>"><%= logement[:nom] %></option>
         <% end %>
       </select>
     </label>
@@ -138,7 +216,7 @@
           <% if sessioniste.dortoir != nil %>
             <td><%= sessioniste.dortoir.get_nom_complet %></td>
           <% else %>
-            <td>non loger</td>
+            <td class="text-center"><span class="badge badge-warning">non loger</span></td>
           <% end %>
           <td><%= link_to 'Voir', sessioniste %></td>
         </tr>
@@ -152,12 +230,22 @@
     $(document).ready(function () {
       $('#imprimer').hide()
       $('#exporter').hide()
+      $('#imp').hide()
+
       $('#option-paroise').hide()
       $('#option-sexe').hide()
       $('#option-classe').hide()
       $('#option-groupe').hide()
       $('#option-communaute').hide()
       $('#option-logement').hide()
+
+      $('#option-paroises').hide()
+      $('#option-sexes').hide()
+      $('#option-classes').hide()
+      $('#option-groupes').hide()
+      $('#option-communautes').hide()
+      $('#option-logements').hide()
+
       var t = $('#sessioniste').DataTable({
         columnDefs: [{
             'targets': 0,
@@ -267,22 +355,82 @@
         }
       })
       $('#option-paroise-select').on('change', function(){
-        t.columns(7).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+        t.columns(7).search( "\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
       })
       $('#option-sexe-select').on('change', function(){
-        t.columns(3).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+        t.columns(3).search( "\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
       })
       $('#option-classe-select').on('change', function(){
-        t.columns(4).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+        t.columns(4).search( "\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
       })
       $('#option-groupe-select').on('change', function(){
-        t.columns(5).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+        t.columns(5).search( "\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
       })
       $('#option-communaute-select').on('change', function(){
-        t.columns(6).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+        t.columns(6).search( "\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
       })
       $('#option-logement-select').on('change', function(){
-        t.columns(8).search( "^\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+        t.columns(8).search( "\\s*"+this.value+"\\s*$", true, false, true ).draw(true)
+      })
+
+      $('#imp').on('click', function(e){
+        var opt = ''
+        if ($('#filtre_liste').val() === 'paroise' ) {
+          opt = $('#option-paroises-select').val()
+        } else if ($('#filtre_liste').val() === 'classe' ) {
+          opt = $('#option-classes-select').val()
+        } else if ($('#filtre_liste').val() === 'groupe' ) {
+          opt = $('#option-groupes-select').val()
+        } else if ($('#filtre_liste').val() === 'communaute' ) {
+          opt = $('#option-communautes-select').val()
+        } else if ($('#filtre_liste').val() === 'logement' ) {
+          opt = $('#option-logements-select').val()
+        } else {
+          opt = ''
+        }
+
+        $.ajax({
+          url: `/enregistrer-la-fiche`,
+          headers: {
+            'X-CSRF-Token': '<%= form_authenticity_token.to_s %>'
+          },
+          type: 'post',
+          data: {
+            filtre: $('#filtre_liste').val(),
+            opt: opt
+          }
+        })
+        .done( (response) => {
+          window.location.assign(`fiche-des-sessionistes/${response.id}.pdf`)
+        })
+      })
+
+      $('#filtre_liste').on('change', function(){
+        if ($('#filtre_liste').val() === '' ) {
+          $('#imp').hide()
+          // Paroise select
+          $('#option-paroises').hide()
+          $('#option-paroises-select').prop('selectedIndex', 0)
+          // Classe select
+          $('#option-classes').hide()
+          $('#option-classes-select').prop('selectedIndex', 0)
+          // Groupe select
+          $('#option-groupes').hide()
+          $('#option-groupes-select').prop('selectedIndex', 0)
+          // Communaute select
+          $('#option-communautes').hide()
+          $('#option-communautes-select').prop('selectedIndex', 0)
+          // Communaute select
+          $('#option-logements').hide()
+          $('#option-logements-select').prop('selectedIndex', 0)
+        } else {
+          $('#imp').show()
+          $('#filtre_liste').val() === 'paroise' ? $('#option-paroises').show() : $('#option-paroises').hide()
+          $('#filtre_liste').val() === 'classe' ? $('#option-classes').show() : $('#option-classes').hide()
+          $('#filtre_liste').val() === 'groupe' ? $('#option-groupes').show() : $('#option-groupes').hide()
+          $('#filtre_liste').val() === 'communaute' ? $('#option-communautes').show() : $('#option-communautes').hide()
+          $('#filtre_liste').val() === 'logement' ? $('#option-logements').show() : $('#option-logements').hide()
+        }
       })
     })
   </script>

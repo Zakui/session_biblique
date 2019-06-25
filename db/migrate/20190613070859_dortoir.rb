@@ -7,6 +7,7 @@ class Dortoir < ActiveRecord::Migration[5.2]
       t.integer :place_disponible, default: 0
       t.references :batiment, foreign_key: true
       t.string :ocupant
+      t.string :hash_id, index: true
 
       t.timestamps
     end

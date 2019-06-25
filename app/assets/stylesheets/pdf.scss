@@ -130,3 +130,27 @@ body {
 .page-break {
     display:block; clear:both; page-break-before:always;
 }
+
+
+
+// for tables
+#content {
+    padding-top: 20px;
+}
+div.alwaysbreak {
+    page-break-before: always;
+}
+div.nobreak:before {
+    clear: both;
+}
+div.nobreak {
+    page-break-inside: avoid;
+}
+.avoidbreak {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+table, tbody, td, tfoot, th, thead, tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+}

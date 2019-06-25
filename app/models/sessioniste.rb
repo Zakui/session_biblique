@@ -1,4 +1,5 @@
 class Sessioniste < ApplicationRecord
+  include Friendlyable
   belongs_to :dortoir, optional: true
   belongs_to :paroise
 

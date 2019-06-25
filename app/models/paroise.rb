@@ -1,4 +1,5 @@
 class Paroise < ApplicationRecord
+    include Friendlyable
     has_many :sessionistes
 
     def get_nom

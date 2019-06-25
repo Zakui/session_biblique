@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_23_103409) do
+ActiveRecord::Schema.define(version: 2019_06_25_185957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,8 +18,10 @@ ActiveRecord::Schema.define(version: 2019_06_23_103409) do
   create_table "batiments", force: :cascade do |t|
     t.string "nom"
     t.string "abbreger"
+    t.string "hash_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["hash_id"], name: "index_batiments_on_hash_id"
   end
 
   create_table "dortoirs", force: :cascade do |t|
@@ -29,15 +31,28 @@ ActiveRecord::Schema.define(version: 2019_06_23_103409) do
     t.integer "place_disponible", default: 0
     t.bigint "batiment_id"
     t.string "ocupant"
+    t.string "hash_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["batiment_id"], name: "index_dortoirs_on_batiment_id"
+    t.index ["hash_id"], name: "index_dortoirs_on_hash_id"
   end
 
   create_table "paroises", force: :cascade do |t|
     t.string "nom"
+    t.string "hash_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["hash_id"], name: "index_paroises_on_hash_id"
+  end
+
+  create_table "print_fiches", force: :cascade do |t|
+    t.string "filtre"
+    t.string "opt"
+    t.string "hash_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hash_id"], name: "index_print_fiches_on_hash_id"
   end
 
   create_table "print_saves", force: :cascade do |t|
@@ -49,8 +64,10 @@ ActiveRecord::Schema.define(version: 2019_06_23_103409) do
   create_table "print_tables", force: :cascade do |t|
     t.string "titre"
     t.text "ids"
+    t.string "hash_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["hash_id"], name: "index_print_tables_on_hash_id"
   end
 
   create_table "sessionistes", force: :cascade do |t|
@@ -66,9 +83,11 @@ ActiveRecord::Schema.define(version: 2019_06_23_103409) do
     t.string "communaute"
     t.bigint "dortoir_id"
     t.bigint "paroise_id"
+    t.string "hash_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["dortoir_id"], name: "index_sessionistes_on_dortoir_id"
+    t.index ["hash_id"], name: "index_sessionistes_on_hash_id"
     t.index ["paroise_id"], name: "index_sessionistes_on_paroise_id"
   end
 
