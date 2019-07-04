@@ -8,123 +8,165 @@
   <%= link_to  new_sessionistes_import_path, class: 'btn btn-primary mb-4' do %>
     <i class="fa fa-upload"></i> Importer
   <% end %>
-  <button id="imprimer" type="button" class="btn btn-primary float-right mb-4">
-    <i class="fa fa-id-card"></i> Badges
-  </button>
-  <button id="exporter" type="button" class="btn btn-primary float-right mr-1 mb-4">
-    <i class="fa fa-download"></i> Exporter en Excel
-  </button>
   <% if @sessionistes.length > 0 %>
-    <button type="button" class="btn btn-primary float-right mr-1 mb-4" data-toggle="modal" data-target="#listes">
-      <i class="fa fa-list"></i> Liste des Sessionistes
-    </button>
-    <button type="button" class="btn btn-primary float-right mr-1 mb-4" data-toggle="modal" data-target="#loger">
-      <i class="fa fa-home"></i> Loger les sessionistes
-    </button>
-  <% end %>
+    <div class="btn-group float-right mr-1 mb-4">
+      <button type="button" id="dropdownMenu2" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Actions
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <button type="button" class="dropdown-item btn" data-toggle="modal" data-target="#listes">
+          <i class="fa fa-list"></i> Liste des Sessionistes
+        </button>
+        <div class="dropdown-divider"></div>
+        <button type="button" class="dropdown-item btn" data-toggle="modal" data-target="#loger">
+          <i class="fa fa-home"></i> Loger les sessionistes
+        </button>
+        <div class="dropdown-divider"></div>
+        <button type="button" class="dropdown-item btn" data-toggle="modal" data-target="#communaute">
+          <i class="fa fa-group"></i> Ajouter aux communautes
+        </button>
+        <div id="imprimer-div"  class="dropdown-divider"></div>
+        <button id="imprimer" type="button" class="dropdown-item btn">
+          <i class="fa fa-id-card"></i> Imprimer les badges
+        </button>
+        <div id="exporter-div" class="dropdown-divider"></div>
+        <button id="exporter" type="button" class="dropdown-item btn">
+          <i class="fa fa-download"></i> Exporter en Excel
+        </button>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="listes" tabindex="-1" role="dialog" aria-labelledby="listesLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="listesLabel">Liste des sessionistes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4 class="text-center">Liste des Sessionistes</h4>
+            <small class="form-text text-muted text-center">(Choisir la liste que vous voulez exporter)</small>
 
-  <!-- Modal -->
-  <div class="modal fade" id="listes" tabindex="-1" role="dialog" aria-labelledby="logerLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="logerLabel">Liste des sessionistes</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h4 class="text-center">Liste des Sessionistes</h4>
-          <small class="form-text text-muted text-center">(Choisir la liste que vous voulez exporter)</small>
-
-          <div class="text-center">
-            <label>Filtre
-              <select id="filtre_liste" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
-                <option value="">---------</option>
-                <option value="paroise">Paroise</option>
-                <option value="classe">Classe</option>
-                <option value="groupe">Groupe</option>
-                <option value="communaute">Communauté</option>
-                <option value="logement">Logement</option>
-              </select>
-            </label>
-            <label id="option-paroises" class="ml-4"> Option
-              <select id="option-paroises-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
-                <% @paroises.each do |paroise| %>
-                  <option value="<%= paroise[:id] %>"><%= paroise[:nom] %></option>
-                <% end %>
-              </select>
-            </label>
-            <label id="option-classes" class="ml-4"> Option
-              <select id="option-classes-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
-                <% @classes.each do |classe| %>
-                  <option value="<%= classe %>"><%= classe %></option>
-                <% end %>
-              </select>
-            </label>
-            <label id="option-groupes" class="ml-4"> Option
-              <select id="option-groupes-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
-                <% @groupes.each do |groupe| %>
-                  <option value="<%= groupe %>"><%= groupe %></option>
-                <% end %>
-              </select>
-            </label>
-            <label id="option-communautes" class="ml-4"> Option
-              <select id="option-communautes-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
-                <% @communautes.each do |communaute| %>
-                  <option value="<%= communaute %>"><%= communaute %></option>
-                <% end %>
-              </select>
-            </label>
-            <label id="option-logements" class="ml-4"> Option
-              <select id="option-logements-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
-                <option value="non loger">Non loger</option>
-                <% @logements.each do |logement| %>
-                  <option value="<%= logement[:id] %>"><%= logement[:nom] %></option>
-                <% end %>
-              </select>
-            </label>
+            <div class="text-center">
+              <label>Filtre
+                <select id="filtre_liste" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                  <option value="">---------</option>
+                  <option value="paroise">Paroise</option>
+                  <option value="classe">Classe</option>
+                  <option value="groupe">Groupe</option>
+                  <option value="communaute">Communauté</option>
+                  <option value="logement">Logement</option>
+                </select>
+              </label>
+              <label id="option-paroises" class="ml-4"> Option
+                <select id="option-paroises-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                  <% @paroises.each do |paroise| %>
+                    <option value="<%= paroise[:id] %>"><%= paroise[:nom] %></option>
+                  <% end %>
+                </select>
+              </label>
+              <label id="option-classes" class="ml-4"> Option
+                <select id="option-classes-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                  <% @classes.each do |classe| %>
+                    <option value="<%= classe %>"><%= classe %></option>
+                  <% end %>
+                </select>
+              </label>
+              <label id="option-groupes" class="ml-4"> Option
+                <select id="option-groupes-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                  <% @groupes.each do |groupe| %>
+                    <option value="<%= groupe %>"><%= groupe %></option>
+                  <% end %>
+                </select>
+              </label>
+              <label id="option-communautes" class="ml-4"> Option
+                <select id="option-communautes-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                  <% @communautes.each do |communaute| %>
+                    <option value="<%= communaute %>"><%= communaute %></option>
+                  <% end %>
+                </select>
+              </label>
+              <label id="option-logements" class="ml-4"> Option
+                <select id="option-logements-select" class="ml-2 custom-select w-auto custom-select-sm form-control form-control-sm d-inline-block">
+                  <option value="non loger">Non loger</option>
+                  <% @logements.each do |logement| %>
+                    <option value="<%= logement[:id] %>"><%= logement[:nom] %></option>
+                  <% end %>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              <i class="fa fa-times-circle"></i> Non
+            </button>
+            <button id="imp" type="button" class="btn btn-primary">
+              <i class="fa fa-print"></i> Imprimer
+            </button>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            <i class="fa fa-times-circle"></i> Non
-          </button>
-          <button id="imp" type="button" class="btn btn-primary">
-            <i class="fa fa-print"></i> Imprimer
-          </button>
-        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="loger" tabindex="-1" role="dialog" aria-labelledby="logerLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="logerLabel">Loger les sessionistes</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Voulez-vous loger tout les sessionistes sans logement ?</p>
-          <small class="form-text text-muted">
-            (Cette action n'affectera que les sessionistes qui n'ont aucun logement)
-          </small>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            <i class="fa fa-times-circle"></i> Non
-          </button>
-          <%= link_to  sessionistes_loger_path, class: 'btn btn-primary' do %>
-            <i class="fa fa-check"></i> Oui
-          <% end %>
+    <!-- Modal -->
+    <div class="modal fade" id="loger" tabindex="-1" role="dialog" aria-labelledby="logerLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="logerLabel">Loger les sessionistes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Voulez-vous loger tout les sessionistes sans logement ?</p>
+            <small class="form-text text-muted">
+              (Cette action n'affectera que les sessionistes qui n'ont aucun logement)
+            </small>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              <i class="fa fa-times-circle"></i> Non
+            </button>
+            <%= link_to  sessionistes_loger_path, class: 'btn btn-primary' do %>
+              <i class="fa fa-check"></i> Oui, pour tout les sessionistes
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="communaute" tabindex="-1" role="dialog" aria-labelledby="communauteLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="communauteLabel">Ajouter aux communautes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Voulez-vous ajouter tout les sessionistes à des communautes ?</p>
+            <small class="form-text text-muted">
+              (Cette action n'affectera que les sessionistes qui n'ont pas communaute)
+            </small>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              <i class="fa fa-times-circle"></i> Non
+            </button>
+            <%= link_to  sessionistes_ajouter_aux_communautes_path, class: 'btn btn-primary' do %>
+              <i class="fa fa-check"></i> Oui, pour tout les sessionistes
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
 
   <div class="text-center">
     <label>Par
@@ -193,7 +235,7 @@
       <tr>
         <th></th>
         <th scope="col">No</th>
-        <th scope="col">Prenoms & Nom</th>
+        <th scope="col">Prénoms & Nom</th>
         <th scope="col">Sexe</th>
         <th scope="col">Classe</th>
         <th scope="col">Groupe</th>
@@ -231,7 +273,9 @@
   <script>
     $(document).ready(function () {
       $('#imprimer').hide()
+      $('#imprimer-div').hide()
       $('#exporter').hide()
+      $('#exporter-div').hide()
       $('#imp').hide()
 
       $('#option-paroise').hide()
@@ -265,10 +309,14 @@
       t.on('select', function() {
         if (t.column(0).checkboxes.selected().length === 0) {
           $('#imprimer').hide()
+          $('#imprimer-div').hide()
           $('#exporter').hide()
+          $('#exporter-div').hide()
         } else {
           $('#imprimer').show()
+          $('#imprimer-div').show()
           $('#exporter').show()
+          $('#exporter-div').show()
         }
       })
       t.on('deselect', function() {

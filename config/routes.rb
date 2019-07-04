@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   match 'enregistrer-la-fiche', to: 'print_tables#save_fiche', as: 'print_tables_save_fiche', via: [:post]
   get 'generation-de-badge/:id', to: 'sessionistes#badge', as: 'sessionistes_generation_badge'
   get 'loger-les-sessionistes', to: 'sessionistes#loger', as: 'sessionistes_loger'
+  get 'ajouter-aux-communaute', to: 'sessionistes#ajouter_aux_communautes', as: 'sessionistes_ajouter_aux_communautes'
   get 'exporter-en-excel/:id', to: 'sessionistes#exporter_excel', as: 'sessionistes_exporter_excel'
   get 'fiche-des-sessionistes/:id', to: 'sessionistes#liste', as: 'sessionistes_liste'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

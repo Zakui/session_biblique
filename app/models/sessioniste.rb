@@ -11,4 +11,10 @@ class Sessioniste < ApplicationRecord
     dortoir.save
     true
   end
+
+  def ajouter_a_une_communaute(communaute)
+    self.communaute = communaute
+    self.save
+    true
+  end
 end

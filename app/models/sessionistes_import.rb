@@ -37,7 +37,6 @@ class SessionistesImport
         sessioniste.derniere_classe = row['Derniere Classe'] ? row['Derniere Classe'].upcase : ''
         sessioniste.classe = row['Classe'] ? row['Classe'].upcase : ''
         sessioniste.groupe = row['Groupe'] ? row['Groupe'].upcase : ''
-        sessioniste.communaute = row['Communaute'] ? row['Communaute'].upcase : ''
         sessioniste.telephone = row['Contact'].class == 'String'? row['Contact'] : number_with_precision(row['Contact'], precision: 0)
         sessioniste.paroise = Paroise.friendly.find(paroise)
         sessioniste

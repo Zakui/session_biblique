@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2019_06_25_185957) do
 
   create_table "paroises", force: :cascade do |t|
     t.string "nom"
+    t.string "abbreger"
     t.string "hash_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -57,8 +58,10 @@ ActiveRecord::Schema.define(version: 2019_06_25_185957) do
 
   create_table "print_saves", force: :cascade do |t|
     t.text "ids"
+    t.string "hash_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["hash_id"], name: "index_print_saves_on_hash_id"
   end
 
   create_table "print_tables", force: :cascade do |t|

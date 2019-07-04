@@ -50,22 +50,26 @@
                     <% unless request.format.to_sym == :pdf %>
                         <img class="mr-2 float-right" src="<%= image_path('logo.webp') %>" alt="logo cdj" width="30" height="50">
                     <% end %>
-                    <h6 class="float-right mt-3 mr-3 font-weight-bold archidiocese"><u>ARCHIDIOCESE DE CONAKRY</u></h6>
+                    <div class="float-right mt-2 mr-3">
+                        <h6 class="font-weight-bold archidiocese"><u>ARCHIDIOCESE DE CONAKRY</u></h6>
+                        <span class="cdj">COMMISSION DIOCESAINE DE LA JEUNESSE</span>
+                    </div>
                 </div>
                 <div class="w-100 pt-4 corp-badge">
                     <h4 class="text-center session-titre">SESSION DE FORMATION</h4>
                     <h6 class="text-center session-sous-titre">Biblique et Humaine</h6>
                     <div class="astrodivider"><div class="astrodividermask"></div><span><i>&#10038;</i></span></div>
                     <div class="text-center mb-4 theme">
-                        <span class="text-danger text-style2"><u>Theme:</u> Que tous soient un. (Jean 17, 21)</span>
+                        <span class="text-danger text-style2"><u>Thème:</u> Que tous soient un. (Jean 17, 21)</span>
                     </div>
-                    <div class="ml-5 mt-5">
+                    <div class="ml-5 mt-4">
                         <div>
                             <span class="text-style"><strong class="text-uppercase">Prenoms:</strong> <%= item.prenoms %></span><br>
                             <span class="text-style"><strong class="text-uppercase">Nom:</strong> <%= item.nom %></span><br>
-                            <span class="text-style"><strong class="text-uppercase">Classe:</strong> <%= item.classe %></span><br>
+                            <span class="text-style"><strong class="text-uppercase">Paroise:</strong> <%= item.paroise.abbreger %></span><br>
                             <span class="text-style"><strong class="text-uppercase">Groupe:</strong> <%= item.groupe %></span><br>
-                            <span class="text-style"><strong class="text-uppercase">Communaute:</strong> <%= item.communaute %></span>
+                            <span class="text-style"><strong class="text-uppercase">Communaute:</strong> <%= item.communaute %></span><br>
+                            <span class="text-style"><strong class="text-uppercase">Classe:</strong> <%= item.classe %></span>
                         </div>
                     </div>
                     <div class="mt-4 img-mt">
@@ -78,7 +82,7 @@
                         <div class="float-left vertical-line ml-3"></div>
                         <div class="float-left ml-3">
                             <h5>Kendoumayah</h5>
-                            <div class="text-primary">Du 01 au 11 Aout 2019</div>
+                            <div class="text-primary">Du 01 au 11 Août 2019</div>
                         </div>
                     </div>
                 </div>

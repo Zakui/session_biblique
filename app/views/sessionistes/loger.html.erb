@@ -1,0 +1,22 @@
+<%= render template: 'layouts/navbar' %>
+
+<div class="container mt-4 text-center">
+    <label class="text-success text-center mb-4">Tous les sessionistes on été loger dans les dortoirs.</label>
+
+    <h2>Voici les statistiques des batiments après logement</h2>
+
+    <ol class="text-left list-group list-group-flush list-pourcentage">
+        <% @dortoirs.each do |dortoir| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <%= dortoir.get_nom_complet %> <span class="badge badge-primary badge-pill"><%= dortoir.get_pourcentage %>% </span>
+            </li>
+        <% end %>
+    </ol>
+
+    <div class="mt-5">
+        <%= link_to root_path, class: 'btn btn-primary d-inline-block' do %>
+            <i class="fa fa-home"></i> Retour a la page d'acceuil
+        <% end %>
+    </div>
+
+</div>

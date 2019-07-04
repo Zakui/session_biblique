@@ -18,4 +18,12 @@ class Paroise < ApplicationRecord
             nil
         end
     end
+    def pick_one_sessioniste_sans_communaute
+        sess = self.sessionistes.where(communaute: nil)
+        if sess.length > 0
+            sess.first
+        else
+            nil
+        end
+    end
 end

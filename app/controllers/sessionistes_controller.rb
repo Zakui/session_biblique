@@ -155,12 +155,31 @@ class SessionistesController < ApplicationController
           end
       end
     end
-    redirect_to root_path, notice: 'Tout les sessionistes on été loger.'
+    @dortoirs = Dortoir.where(ocupant: 'Filles').or(Dortoir.where(ocupant: 'Garçons'))
+  end
+
+  # GET /ajouter-aux-communaute
+  def ajouter_aux_communautes
+    while Sessioniste.where(communaute: nil).length > 0
+      paroises = get_paroise_for_communaute
+      
+      paroises.each do |paroise|
+        ['SAINT MATTHIEU', 'SAINT JEAN', 'SAINT LUC', 'SAINT MARC'].each do |communaut|
+              sessioniste = paroise.pick_one_sessioniste_sans_communaute
+              if sessioniste
+                sessioniste.ajouter_a_une_communaute(communaut)
+              else
+                  break
+              end
+          end
+      end
+    end
+    redirect_to root_path, notice: 'Tout les sessionistes on été ajouter a des communautés.'
   end
 
   # GET /exporter-en-excel/1
   def exporter_excel
-    p_save = PrintSave.find(params[:id])
+    p_save = PrintSave.friendly.find(params[:id])
     @sessionistes = []
     eval(p_save.ids).each do |key, v|
       @sessionistes.push(Sessioniste.friendly.find(v))
@@ -208,6 +227,16 @@ class SessionistesController < ApplicationController
       @paroises = []
       Paroise.all.each do |paroise|
           if paroise.sessionistes.where(dortoir: nil, sexe: sexe).length > 0
+              @paroises.push(paroise)
+          end
+      end
+      @paroises
+    end
+
+    def get_paroise_for_communaute
+      @paroises = []
+      Paroise.all.each do |paroise|
+          if paroise.sessionistes.where(communaute: nil).length > 0
               @paroises.push(paroise)
           end
       end
